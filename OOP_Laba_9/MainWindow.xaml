@@ -1,0 +1,99 @@
+﻿<Window x:Class="OOP_Laba_9.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OOP_Laba_9"
+        mc:Ignorable="d"
+        Title="{DynamicResource m_Title}" Height="600" Width="800">
+    <Window.CommandBindings>
+        <CommandBinding Command="New" Executed="New_Click"/>
+        <CommandBinding Command="Save" Executed="Save_Click"/>
+        <CommandBinding Command="Open" Executed="Open_Click"/>
+        <CommandBinding Command="Undo" Executed="Undo_Click"/>
+        <CommandBinding Command="Redo" Executed="Redo_Click"/>
+    </Window.CommandBindings>
+    <Window.Icon>Icon1.ico</Window.Icon>
+    <Window.Cursor>Cursor1.cur</Window.Cursor>
+    <Window.Resources>
+        <Style x:Key="BlackAndWhite">
+            <Setter Property="Control.FontFamily" Value="Verdana" />
+            <Setter Property="Control.Background" Value="#87CEEB" />
+            <Setter Property="Control.Foreground" Value="White" />
+        </Style>
+    </Window.Resources>
+    <Grid x:Name="grd" Style="{StaticResource BlackAndWhite}">
+        <Menu Height="20" VerticalAlignment="Top" Style="{StaticResource BlackAndWhite}">
+            <MenuItem Header="{DynamicResource m_File}" x:Name="File" Style="{StaticResource BlackAndWhite}">
+                <MenuItem Header="{DynamicResource m_New}" x:Name="New" Click="New_Click" Style="{StaticResource BlackAndWhite}"/>
+                <MenuItem Header="{DynamicResource m_Save}" x:Name="Save" Click="Save_Click" Style="{StaticResource BlackAndWhite}"/>
+                <MenuItem Header="{DynamicResource m_Open}" x:Name="Open" Click="Open_Click" Style="{StaticResource BlackAndWhite}"/>
+            </MenuItem>
+            <MenuItem Header="{DynamicResource m_Edit}" x:Name="Edit" Style="{StaticResource BlackAndWhite}">
+                <MenuItem Header="{DynamicResource m_Copy}" x:Name="Copy" Click="Copy_Click" Style="{StaticResource BlackAndWhite}"/>
+                <MenuItem Header="{DynamicResource m_Paste}" x:Name="Paste" Click="Paste_Click" Style="{StaticResource BlackAndWhite}"/>
+                <MenuItem Header="{DynamicResource m_Cut}" x:Name="Сut" Click="Сut_Click" Style="{StaticResource BlackAndWhite}"/>
+                <MenuItem Header="{DynamicResource m_Undo}" x:Name="Undo" Click="Undo_Click" Style="{StaticResource BlackAndWhite}"/>
+                <MenuItem Header="{DynamicResource m_Redo}" x:Name="Redo" Click="Redo_Click" Style="{StaticResource BlackAndWhite}"/>
+            </MenuItem>
+            <MenuItem x:Name="menuLanguage" Header="{DynamicResource m_menu_Language}" Style="{StaticResource BlackAndWhite}" Foreground="Black"/>
+        </Menu>
+        <ToolBar x:Name="InstrumentPanell" VerticalAlignment="Top" Margin="0,20,0,0" Height="30" Background="White">
+            <Button x:Name="_New" ToolTip="{DynamicResource m_New}" Command="New">
+                <Image Source="new.png" Height="20" Width="20" />
+            </Button>
+            <Button x:Name="_Save" ToolTip="{DynamicResource m_Save}" Command="Save">
+            <Image Source="save.png" Height="20" Width="20" />
+            </Button>
+            <Button x:Name="_Open" ToolTip="{DynamicResource m_Open}" Command="Open">
+                <Image Source="open.jpg" Height="20" Width="20" />
+            </Button>
+            <Button x:Name="_Undo" ToolTip="{DynamicResource m_Undo}" Command="Undo">
+                <Image Source="undo.png" Height="20" Width="20" />
+            </Button>
+            <Button x:Name="_Redo" ToolTip="{DynamicResource m_Redo}" Command="Redo">
+                <Image Source="redo.png" Height="20" Width="20" />
+            </Button>
+            <ComboBox x:Name="font" SelectionChanged="ComboBox_SelectionChanged">
+                <ComboBoxItem IsSelected="True" FontFamily="Times New Roman">Times New Roman</ComboBoxItem>
+                <ComboBoxItem FontFamily="SketchFlow Print">SketchFlow Print</ComboBoxItem>
+                <ComboBoxItem FontFamily="Verdana">Verdana</ComboBoxItem>
+                <ComboBoxItem FontFamily="Vladimir Script">Vivaldi</ComboBoxItem>
+                <ComboBoxItem FontFamily="Viner Hand ITC">Viner Hand ITC</ComboBoxItem>
+                <ComboBoxItem FontFamily="Stencil">Stencil</ComboBoxItem>
+            </ComboBox>
+            <Slider x:Name="siz" Minimum="8" Maximum="50" Width="110" Value="14" ValueChanged="Slider_ValueChanged"/>
+            <ToggleButton x:Name="B" FontWeight="Bold" Width="20" Unchecked="B_Unchecked" Checked="B_Checked">
+              B  
+            </ToggleButton>
+            <ToggleButton x:Name="I" Width="20" FontStyle="Italic" Checked="I_Checked" Unchecked="I_Unchecked" >
+                I
+            </ToggleButton>
+            <ToggleButton x:Name="U"  Width="20" Checked="U_Checked" Unchecked="U_Unchecked" >
+                <TextBlock TextDecorations="Underline">U</TextBlock>
+            </ToggleButton>
+        </ToolBar>
+        <TabControl x:Name="dcmc"  Margin="0,50,0,10" Style="{StaticResource BlackAndWhite}">
+            <TabItem x:Name="doc">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="3">Document</TextBlock>
+                        <Button x:Name="close" Margin=" 0,2,2,2" Width="15" Background="Red" BorderBrush="White" Foreground="White" Opacity="0.8" Click="close_Click" >X
+                        </Button>
+                    </StackPanel>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <RichTextBox x:Name="richText" HorizontalAlignment="Center" Margin="10,10,10,10" SpellCheck.IsEnabled="True" Language="ru-ru" KeyUp="richText_KeyUp"/>
+                </TabItem.Content>
+            </TabItem>
+
+        </TabControl>
+        <StatusBar x:Name="status" VerticalAlignment="Bottom"  Height="21" Background="White">
+            <StatusBarItem x:Name="sumbl" Content="{DynamicResource m_words}"/>
+            <StatusBarItem x:Name="words">
+              
+            </StatusBarItem>
+        </StatusBar>
+
+    </Grid>
+</Window>
